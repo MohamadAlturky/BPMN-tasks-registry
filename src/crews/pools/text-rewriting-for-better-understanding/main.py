@@ -2,18 +2,24 @@ import os
 from langchain_community.llms import Ollama
 from crewai import Agent, Task, Crew
 from dotenv import load_dotenv
+from pydantic import BaseModel
+
+class Content(BaseModel):
+    content:str
+
+class Paragraphs(BaseModel):
+    paragraphs : list[Content]
+
 load_dotenv(override=True)
 
 llm = Ollama(model="llama3", base_url=os.getenv("OLLAMA_HOST"))
-
-
 
 agent = Agent(
         role="buissness process analyst",
         goal="rewrite the process description {process_description} in seperate paragraphs, each paragraph describes a complete process from start to end.",
         backstory="You work at a company to analyse processes and create a better understanding of the {process_idea} project.",
         allow_delegation=False,
-        verbose=True, 
+        verbose=True,
         llm = llm
     )
 task = Task(
@@ -27,6 +33,7 @@ task = Task(
     expected_output=(
 	    "A detailed flows with a clear process flow."
     ),
+    output_pydantic=Paragraphs,
     agent=agent,
 )
 
@@ -35,6 +42,7 @@ executor =Crew(
     tasks=[task],
     verbose=2
 )
+
 inputs = {
     "process_description": """
         Consider a process for purchasing items
@@ -51,5 +59,6 @@ inputs = {
     """,
     "process_idea": "Ecommerce app",
 }
+
 result = executor.kickoff(inputs)
 print(result)
