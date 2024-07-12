@@ -2,8 +2,6 @@
 
 > business process modeling and notation generation solution using crewai library.
 
-> created by the expert `mohamad alturky`.
-
 > this repo contains the tasks to generate the bpmn.
 
 ## running the the tasks
