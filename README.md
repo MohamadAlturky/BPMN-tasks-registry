@@ -1,11 +1,11 @@
-> [!NOTE]  
-> we are inspired of the examples from [crewAI examples](https://github.com/joaomdmoura/crewAI-examples)
-
 # BPMN
 
 > business process modeling and notation generation solution using crewai library.
 
 > this repo contains the tasks to generate the bpmn.
+
+> [!NOTE]  
+> we are inspired of the examples from [crewAI](https://github.com/joaomdmoura/crewAI-examples).
 
 ## running the the tasks
 
