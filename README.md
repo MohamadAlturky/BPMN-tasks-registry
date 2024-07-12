@@ -4,7 +4,7 @@
 
 > this repo contains the tasks to generate the bpmn.
 
-> [!NOTE]  
+> [!IMPORTANT]  
 > we are inspired of the examples from [crewAI](https://github.com/joaomdmoura/crewAI-examples).
 
 ## running the the tasks
