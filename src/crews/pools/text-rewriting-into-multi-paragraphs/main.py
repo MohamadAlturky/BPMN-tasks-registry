@@ -5,39 +5,38 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 
 class Content(BaseModel):
-    content:str
+    content: str
 
 class Paragraphs(BaseModel):
-    paragraphs : list[Content]
+    paragraphs: list[Content]
 
 load_dotenv(override=True)
 
 llm = Ollama(model="llama3", base_url=os.getenv("OLLAMA_HOST"))
 
 agent = Agent(
-        role="buissness process analyst",
-        goal="rewrite the process description {process_description} in seperate paragraphs, each paragraph describes a complete process from start to end.",
-        backstory="You work at a company to analyse processes and create a better understanding of the {process_idea} project.",
-        allow_delegation=False,
-        verbose=True,
-        llm = llm
-    )
+    role="business process analyst",
+    goal="Rewrite the given process description '{process_description}' into separate paragraphs. Each paragraph should describe a complete process from start to end, clearly outlining each independent flow.",
+    backstory="As a business process analyst at your company, your job is to analyze and improve the understanding of the '{process_idea}' project by breaking down its process descriptions into clear, standalone components.",
+    allow_delegation=False,
+    verbose=True,
+    llm=llm
+)
+
 task = Task(
     description=(
-        "the {process_description} describes the flow of the activities "
-        "in the case of {process_idea}."
-		"Make sure to use everything you know "
-        "to rewrite the process into seperate complete paragraphs, "
-        "please accuratly specify the seperate paragraphs and don't miss any activity."
+        "The '{process_description}' outlines the sequence of activities for the '{process_idea}' project. "
+        "Your task is to use your expertise to rewrite this description into separate, clear paragraphs. "
+        "Each paragraph must detail a complete process flow from start to end, ensuring no activity is overlooked."
     ),
     expected_output=(
-	    "A detailed flows with a clear process flow."
+        "A set of detailed paragraphs, each representing an independent process flow with clear start-to-end steps."
     ),
     output_pydantic=Paragraphs,
     agent=agent,
 )
 
-executor =Crew(
+executor = Crew(
     agents=[agent],
     tasks=[task],
     verbose=2
@@ -60,5 +59,11 @@ inputs = {
     "process_idea": "Ecommerce app",
 }
 
-result = executor.kickoff(inputs)
+result :Paragraphs = executor.kickoff(inputs)
 print(result)
+
+for i in result.paragraphs:
+    print("Paragraph")
+    print()
+    print(i.content)
+    print()
