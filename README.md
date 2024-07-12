@@ -1,3 +1,6 @@
+> [!NOTE]  
+> we are inspired of the examples from [crewAI examples](https://github.com/joaomdmoura/crewAI-examples)
+
 # BPMN
 
 > business process modeling and notation generation solution using crewai library.
