@@ -57,3 +57,32 @@ complete_prompt = PROMPT.replace("{activities}", activities)
 generate = llm.invoke(complete_prompt)
 
 print(generate)
+
+
+PROMPT = """
+extract bpmn in json from this structured sequence flow
+{flow}
+
+the desired output is a list of edges 
+edge formate
+{
+    "from":"",
+    "to":"",
+    "condition":"",
+}
+
+notes: 
+the from is the activity name
+the to is the activity name
+the condition is the condition to go from the first activity to the second one.
+"""
+
+complete_prompt = PROMPT.replace("{flow}", generate)
+
+print()
+print()
+print()
+print()
+print()
+generate = llm.invoke(complete_prompt)
+print(generate)
