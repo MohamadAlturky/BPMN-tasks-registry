@@ -56,7 +56,7 @@ Evaluation Criteria:
 
 Additional Notes:
 By following these guidelines, I hope to receive a high-quality output that accurately represents the process description in a clear and concise manner.
-Don't specify any thing else the formated Output. 
+Don't specify any thing else other than formated Output. 
 """
 complete_prompt = PROMPT.replace("{process_description}", process_description)
 

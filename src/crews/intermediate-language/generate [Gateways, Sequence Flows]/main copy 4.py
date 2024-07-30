@@ -76,7 +76,6 @@ the from is the activity name
 the to is the activity name
 the condition is the condition to go from the first activity to the second one.
 """
-# if there is a gateway put it in the from section or the to section the gateway name is the type of it and a unique number
 
 complete_prompt = PROMPT.replace("{flow}", generate)
 
@@ -94,28 +93,28 @@ print()
 print()
 print()
 print()
-# print()
-# PROMPT = """
-# Extract all Gateway elements (Exclusive, Inclusive, Parallel) from the provided Business Process description. A Gateway is an element that controls the flow of activities in the process.
+print()
+PROMPT = """
+Extract all Gateway elements (Exclusive, Inclusive, Parallel) from the provided Business Process description. A Gateway is an element that controls the flow of activities in the process.
 
-# For each Gateway found, please answer the following questions:
+For each Gateway found, please answer the following questions:
 
-# Gateway Type: What type of Gateway is it? (Exclusive, Inclusive, Parallel)
+Gateway Type: What type of Gateway is it? (Exclusive, Inclusive, Parallel)
 
-# Condition: What condition(s) determine which path to take?
+Condition: What condition(s) determine which path to take?
 
-# Path Options: List all possible paths that can be taken after the Gateway.
+Path Options: List all possible paths that can be taken after the Gateway.
 
-# Edge Triggers: Describe how the edge triggers are evaluated (e.g., based on user input, system data, or a specific event).
+Edge Triggers: Describe how the edge triggers are evaluated (e.g., based on user input, system data, or a specific event).
 
-# Successor Activities: Identify the activities that follow each path option.
+Successor Activities: Identify the activities that follow each path option.
 
 
-# Please provide your answers in a clear and concise format, highlighting the relevant sections of the original Business Process description where applicable.
-# this is the process description {text}
-# write the output as csv
-# """
-# complete_prompt = PROMPT.replace("{text}", generate)
+Please provide your answers in a clear and concise format, highlighting the relevant sections of the original Business Process description where applicable.
+this is the process description {text}
+write the output as csv
+"""
+complete_prompt = PROMPT.replace("{text}", generate)
 
-# generate = llm.invoke(complete_prompt)
-# print(generate)
+generate = llm.invoke(complete_prompt)
+print(generate)
