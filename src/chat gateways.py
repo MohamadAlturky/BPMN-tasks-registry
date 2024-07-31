@@ -55,27 +55,54 @@ print()
 
 
 
-# PROMPT="""
-# extract flow between the components of this process description
-# **Process Description**:
-# {process_description}
 
-# **Notes**:
-# - each connection has a type [direct connection,parallel point,decision point]
-# - the output is a list of conections has this json structure 
-#     `
-#         source:[name],
-#         distination:[name],
-#         condition:[condition to move from the source to the distination],
-#         type:[type]
-#     `
-# """
-# llm = Ollama(model="llama3", base_url=os.getenv("OLLAMA_HOST"))
+PROMPT = """
+as a json expert represent the given gateways in a json list.
 
-# complete_prompt = PROMPT.replace("{process_description}", generate)
-# complete_prompt = complete_prompt.replace("\n", " ")
-# complete_prompt = complete_prompt.replace("-", "\n-")
+**Expected output**:
+a valid json list object of this formate 
+{
+	"name":"string",
+	"type":"string",
+	"description":"string",
+	"inputs":[
+		{
+			"name":"string",
+			"description":"string"
+		}
+	],
+	"outputs":[
+		{
+			"name":"string",
+			"description":"string"
+		}
+	],
+}
 
-# generate = llm.invoke(complete_prompt)
+**The tasks**
+{gateways}
 
-# print(generate)
+**Notes**:
+write the json inside a section of this formate
+
+```json
+the json object
+```
+
+"""
+llm = Ollama(model="llama3.1", base_url=os.getenv("OLLAMA_HOST"))
+
+complete_prompt = PROMPT.replace("{gateways}", generate)
+
+generate = llm.invoke(complete_prompt)
+
+print()
+print()
+print()
+print()
+print()
+print(generate)
+print()
+print()
+print()
+print()

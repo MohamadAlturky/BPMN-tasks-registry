@@ -48,3 +48,45 @@ print()
 print()
 print()
 print()
+
+
+
+
+PROMPT = """
+as a json expert represent the given events in a json list.
+
+**Expected output**:
+a valid json list object of this formate 
+{
+    "name":"string",
+    "type":"string",
+    "description":"string",
+}
+
+**The tasks**
+{events}
+
+**Notes**:
+write the json inside a section of this formate
+
+```json
+the json object
+```
+
+"""
+llm = Ollama(model="llama3.1", base_url=os.getenv("OLLAMA_HOST"))
+
+complete_prompt = PROMPT.replace("{events}", generate)
+
+generate = llm.invoke(complete_prompt)
+
+print()
+print()
+print()
+print()
+print()
+print(generate)
+print()
+print()
+print()
+print()
